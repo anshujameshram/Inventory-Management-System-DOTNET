@@ -1,0 +1,57 @@
+﻿@model WebApplication1.Models.ACustomer
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login Customers</h2>
+<!-- Section: Design Block -->
+<section class="text-center text-lg-start">
+    <style>
+        .rounded-t-5 {
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+    </style>
+    <div class="card mb-3" height="100px">
+        <div class="row g-0 d-flex align-items-center">
+            <div class="col-lg-4 d-none d-lg-flex">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" height="400px" width="500px"
+                     class="w-100 rounded-t-5 rounded-tr-lg-0 rounded-bl-lg-5" />
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card-body py-5 px-md-5">
+                    @using (Html.BeginForm("Login", "Acustomers"))
+                    {
+                        @Html.AntiForgeryToken()
+
+
+
+                        <!-- Email input -->
+                        <h5 class="fw-normal mb-3 pb-3" style="letter-spacing: 1px;">Log In into your account</h5>
+                        <div class="form-outline mb-4">
+                            <label for="Email">Email</label>
+                            @Html.EditorFor(model => model.email, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.email, "", new { @class = "text-danger" })
+                        </div>
+
+
+
+                        <!-- Submit button -->
+                        <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Section: Design Block -->
+
+
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+

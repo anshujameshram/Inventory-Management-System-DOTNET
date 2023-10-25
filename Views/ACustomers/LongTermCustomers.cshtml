@@ -1,0 +1,47 @@
+﻿
+@{
+    ViewBag.Title = "LongTermCustomers";
+}
+
+<h2>Loyal Customers</h2>
+<br>
+<style>
+    table {
+        border: 1px solid black; /* Add a border around the table */
+    }
+
+    table, th, td {
+        border-collapse: collapse; /* Collapse borders for better alignment */
+        border: 1px solid black; /* Add borders to cells and headers */
+    }
+</style>
+
+<table cellpadding="10" >
+    <thead>
+        <tr>
+            <th>Customer ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Telephone</th>
+            <th>Address</th>
+            <th>Registration Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var customer in Model)
+        {
+            <tr border="2">
+                <td border="2">@customer.cus_Id</td>
+                <td border="2">@customer.fname</td>
+                <td border="2">@customer.lname</td>
+                <td border="2">@customer.gender</td>
+                <td border="2">@customer.email</td>
+                <td border="2">@customer.tel</td>
+                <td border="2">@customer.address</td>
+                <td border="2">@customer.cdate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

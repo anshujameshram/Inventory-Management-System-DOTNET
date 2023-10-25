@@ -1,0 +1,99 @@
+﻿@model IEnumerable<WebApplication1.Models.AItem>
+@{
+    ViewBag.Title = "Report";
+    var totalCost = 0;
+    var totalSold = 0;
+    var profit = 0;
+}
+
+<h2>Report</h2>
+
+<h2>List of Items</h2>
+
+<style>
+    table, th, td {
+        border: 1px solid black;
+    }
+</style>
+<table class="table">
+    <tr>
+        <th>
+            <label class="labelclass">Id</label>
+        </th>
+        <th>
+            <label class="labelclass">Name</label>
+        </th>
+        <th>
+            <label class="labelclass">Qty</label>
+        </th>
+        <th>
+            <label class="labelclass">Rate</label>
+        </th>
+        <th>
+            <label class="labelclass">sales_price</label>
+        </th>
+        <th>
+            <label class="labelclass">TotalCost</label>
+        </th>
+        <th>
+            <label class="labelclass">TotalSold</label>
+        </th>
+        <th>
+            <label class="labelclass">Profit</label>
+        </th>
+        <th>
+            <label class="labelclass">Remaining Quantity</label>
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_item)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.itname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.qty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sold_qty)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cost)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.sales_price)
+            </td>
+            <td>
+                @(item.sold_qty * item.cost)
+                @{
+                    totalCost += (int)(item.sold_qty * (item.cost));
+                }
+            </td>
+            <td>
+                @(item.sold_qty * item.sales_price)
+                @{
+                    totalSold += (int)(item.sold_qty * (item.sales_price));
+                }
+            </td>
+            <td>
+                @((item.qty - item.sold_qty))
+            </td>
+        </tr>
+    }
+</table>
+<strong>Total Cost = </strong>@totalCost
+<br />
+<strong>Total Sold = </strong>@totalSold
+
+
+
+@{
+     profit = totalCost - totalSold;
+    var profitPercentage = totalCost != 0 ? (double)profit / totalCost * 100 : 0;
+}
+<div><strong>Total Profit:</strong> @profit</div>
+<div><strong>Profit Percentage:</strong> @profitPercentage.ToString("0.00")%</div>

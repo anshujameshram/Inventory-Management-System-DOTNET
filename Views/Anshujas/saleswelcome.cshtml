@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "sales welcome";
+}
+
+<h2>Welcome Salesperson! You are logged in as a Salesperson</h2>
+<br />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<style>
+    .nbox {
+        border: 1px solid #000;
+        margin: 10px;
+        box-shadow: 5px 5px 5px 0px rgba(0,0,0,0.3);
+        filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+    }
+</style>
+<div style="display:flex; height:500px">
+
+
+
+    <div class="nbox" style="padding:10px;width:50%">
+        <center><h4>Category</h4></center>
+        <br />
+        <br /><br /><br /><br />
+        <center>
+            @Html.ActionLink("Create Category", "Create", "ACategories", null, new { @class = "btn btn-success" })
+        </center>
+        <br />
+        <center>
+            @Html.ActionLink("View Category", "Index", "ACategories", null, new { @class = "btn btn-primary" })
+        </center>
+
+
+
+    </div>
+    <div class="nbox" style="padding:10px;width:50%">
+        <center> <h4>Customers & Shoppings</h4></center>
+        <br /><br /><br /><br /><br />
+        <center>
+            @Html.ActionLink("Add New Customer", "Create", "ACustomers", null, new { @class = "btn btn-success" })
+        </center>
+        <br />
+        <center>
+            @Html.ActionLink("View Customers", "Index", "ACustomers", null, new { @class = "btn btn-primary" })
+        </center>
+
+
+    </div>
+    <div class="nbox" style="padding:10px;width:50%">
+        <center> <h4>Items</h4></center>
+        <br /><br /><br /><br /><br />
+        <center>
+            @Html.ActionLink("Insert Item", "Create", "AItems", null, new { @class = "btn btn-success" })
+        </center>
+        <br />
+        <center>
+            @Html.ActionLink("View Items", "Index", "AItems", null, new { @class = "btn btn-primary" })
+        </center>
+
+
+
+    </div>
+    <div class="nbox" style="padding:10px;width:50%">
+        <center> <h4>Reports</h4></center>
+        <br /><br /><br /><br /><br />
+        <center>
+            @Html.ActionLink("Loyal Customers", "LongTermCustomers", "ACustomers", null, new { @class = "btn btn-primary" })
+        </center>
+        <br />
+
+
+
+    </div>
+
+
+
+
+
+</div>
+<br/>
+<div> @Html.ActionLink("log out", "Logout", "Anshujas", null, new { @class = "btn btn-danger" })</div>

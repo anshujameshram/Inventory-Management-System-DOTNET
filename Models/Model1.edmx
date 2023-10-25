@@ -1,0 +1,440 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="C3IT_DOTNET_TESTModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ACategory">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="int" Nullable="false" />
+          <Property Name="cat_name" Type="varchar" MaxLength="50" />
+          <Property Name="cat_comment" Type="text" />
+          <Property Name="cat_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="ACustomer">
+          <Key>
+            <PropertyRef Name="cus_Id" />
+          </Key>
+          <Property Name="cus_Id" Type="int" Nullable="false" />
+          <Property Name="fname" Type="varchar" MaxLength="50" />
+          <Property Name="lname" Type="varchar" MaxLength="50" />
+          <Property Name="gender" Type="varchar" MaxLength="50" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="tel" Type="varchar" MaxLength="50" />
+          <Property Name="address" Type="varchar" MaxLength="50" />
+          <Property Name="cdate" Type="date" />
+        </EntityType>
+        <EntityType Name="AItems">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="id_item" Type="int" />
+          <Property Name="itname" Type="varchar" MaxLength="50" />
+          <Property Name="cat_id" Type="int" />
+          <Property Name="qty" Type="int" />
+          <Property Name="sold_qty" Type="float" />
+          <Property Name="cost" Type="float" />
+          <Property Name="manufacturer" Type="varchar" MaxLength="50" />
+          <Property Name="address" Type="varchar" MaxLength="50" />
+          <Property Name="telephone" Type="varchar" MaxLength="50" />
+          <Property Name="sales_price" Type="float" />
+          <Property Name="user_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Anshuja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="fname" Type="varchar" MaxLength="25" />
+          <Property Name="lname" Type="varchar" MaxLength="25" />
+          <Property Name="Attname" Type="varchar" MaxLength="50" />
+          <Property Name="dob" Type="datetime" />
+          <Property Name="gender" Type="varchar" MaxLength="25" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="tel" Type="varchar" MaxLength="25" />
+          <Property Name="address" Type="varchar" MaxLength="25" />
+          <Property Name="user_level" Type="varchar" MaxLength="25" />
+          <Property Name="password" Type="varchar" MaxLength="50" />
+          <Property Name="udate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="AOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" Nullable="false" />
+          <Property Name="ordname" Type="varchar" MaxLength="50" />
+          <Property Name="qty" Type="int" />
+          <Property Name="orddate" Type="date" />
+          <Property Name="duedate" Type="date" />
+          <Property Name="cust_id" Type="int" />
+          <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="item_id" Type="int" />
+        </EntityType>
+        <Association Name="FK_AItems_ToTable">
+          <End Role="ACategory" Type="Self.ACategory" Multiplicity="0..1" />
+          <End Role="AItems" Type="Self.AItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACategory">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="AItems">
+              <PropertyRef Name="cat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AItems_ToTable_1">
+          <End Role="Anshuja" Type="Self.Anshuja" Multiplicity="0..1" />
+          <End Role="AItems" Type="Self.AItems" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anshuja">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AItems">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AOrder_ToTable">
+          <End Role="ACustomer" Type="Self.ACustomer" Multiplicity="0..1" />
+          <End Role="AOrder" Type="Self.AOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACustomer">
+              <PropertyRef Name="cus_Id" />
+            </Principal>
+            <Dependent Role="AOrder">
+              <PropertyRef Name="cust_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AOrder_ToTable_1">
+          <End Role="Anshuja" Type="Self.Anshuja" Multiplicity="0..1" />
+          <End Role="AOrder" Type="Self.AOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anshuja">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AOrder">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AOrder_ToTable_2">
+          <End Role="AItems" Type="Self.AItems" Multiplicity="0..1" />
+          <End Role="AOrder" Type="Self.AOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AItems">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AOrder">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="C3IT_DOTNET_TESTModelStoreContainer">
+          <EntitySet Name="ACategory" EntityType="Self.ACategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ACustomer" EntityType="Self.ACustomer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AItems" EntityType="Self.AItems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Anshuja" EntityType="Self.Anshuja" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AOrder" EntityType="Self.AOrder" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AItems_ToTable" Association="Self.FK_AItems_ToTable">
+            <End Role="ACategory" EntitySet="ACategory" />
+            <End Role="AItems" EntitySet="AItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AItems_ToTable_1" Association="Self.FK_AItems_ToTable_1">
+            <End Role="Anshuja" EntitySet="Anshuja" />
+            <End Role="AItems" EntitySet="AItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AOrder_ToTable" Association="Self.FK_AOrder_ToTable">
+            <End Role="ACustomer" EntitySet="ACustomer" />
+            <End Role="AOrder" EntitySet="AOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AOrder_ToTable_1" Association="Self.FK_AOrder_ToTable_1">
+            <End Role="Anshuja" EntitySet="Anshuja" />
+            <End Role="AOrder" EntitySet="AOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AOrder_ToTable_2" Association="Self.FK_AOrder_ToTable_2">
+            <End Role="AItems" EntitySet="AItems" />
+            <End Role="AOrder" EntitySet="AOrder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="C3IT_DOTNET_TESTModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ACategory">
+          <Key>
+            <PropertyRef Name="cat_id" />
+          </Key>
+          <Property Name="cat_id" Type="Int32" Nullable="false" />
+          <Property Name="cat_name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cat_comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="cat_date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AItems" Relationship="Self.FK_AItems_ToTable" FromRole="ACategory" ToRole="AItems" />
+        </EntityType>
+        <EntityType Name="ACustomer">
+          <Key>
+            <PropertyRef Name="cus_Id" />
+          </Key>
+          <Property Name="cus_Id" Type="Int32" Nullable="false" />
+          <Property Name="fname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="lname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="gender" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tel" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cdate" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="AOrders" Relationship="Self.FK_AOrder_ToTable" FromRole="ACustomer" ToRole="AOrder" />
+        </EntityType>
+        <EntityType Name="AItem">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="id_item" Type="Int32" />
+          <Property Name="itname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="cat_id" Type="Int32" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="sold_qty" Type="Double" />
+          <Property Name="cost" Type="Double" />
+          <Property Name="manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="telephone" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="sales_price" Type="Double" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="ACategory" Relationship="Self.FK_AItems_ToTable" FromRole="AItems" ToRole="ACategory" />
+          <NavigationProperty Name="Anshuja" Relationship="Self.FK_AItems_ToTable_1" FromRole="AItems" ToRole="Anshuja" />
+          <NavigationProperty Name="AOrders" Relationship="C3IT_DOTNET_TESTModel.FK_AOrder_ToTable_2" FromRole="AItem" ToRole="AOrder" />
+        </EntityType>
+        <EntityType Name="Anshuja">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="fname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="lname" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Attname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="dob" Type="DateTime" Precision="3" />
+          <Property Name="gender" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tel" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="address" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="user_level" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="udate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="AItems" Relationship="Self.FK_AItems_ToTable_1" FromRole="Anshuja" ToRole="AItems" />
+          <NavigationProperty Name="AOrders" Relationship="Self.FK_AOrder_ToTable_1" FromRole="Anshuja" ToRole="AOrder" />
+        </EntityType>
+        <EntityType Name="AOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" />
+          <Property Name="ordname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="qty" Type="Int32" />
+          <Property Name="orddate" Type="DateTime" Precision="0" />
+          <Property Name="duedate" Type="DateTime" Precision="0" />
+          <Property Name="cust_id" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="user_id" Type="Int32" />
+          <NavigationProperty Name="ACustomer" Relationship="Self.FK_AOrder_ToTable" FromRole="AOrder" ToRole="ACustomer" />
+          <NavigationProperty Name="Anshuja" Relationship="Self.FK_AOrder_ToTable_1" FromRole="AOrder" ToRole="Anshuja" />
+          <Property Name="item_id" Type="Int32" />
+          <NavigationProperty Name="AItem" Relationship="C3IT_DOTNET_TESTModel.FK_AOrder_ToTable_2" FromRole="AOrder" ToRole="AItem" />
+        </EntityType>
+        <Association Name="FK_AItems_ToTable">
+          <End Role="ACategory" Type="Self.ACategory" Multiplicity="0..1" />
+          <End Role="AItems" Type="Self.AItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACategory">
+              <PropertyRef Name="cat_id" />
+            </Principal>
+            <Dependent Role="AItems">
+              <PropertyRef Name="cat_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AOrder_ToTable">
+          <End Role="ACustomer" Type="Self.ACustomer" Multiplicity="0..1" />
+          <End Role="AOrder" Type="Self.AOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ACustomer">
+              <PropertyRef Name="cus_Id" />
+            </Principal>
+            <Dependent Role="AOrder">
+              <PropertyRef Name="cust_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AItems_ToTable_1">
+          <End Role="Anshuja" Type="Self.Anshuja" Multiplicity="0..1" />
+          <End Role="AItems" Type="Self.AItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anshuja">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AItems">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_AOrder_ToTable_1">
+          <End Role="Anshuja" Type="Self.Anshuja" Multiplicity="0..1" />
+          <End Role="AOrder" Type="Self.AOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Anshuja">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AOrder">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="C3IT_DOTNET_TESTEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ACategories" EntityType="Self.ACategory" />
+          <EntitySet Name="ACustomers" EntityType="Self.ACustomer" />
+          <EntitySet Name="AItems" EntityType="Self.AItem" />
+          <EntitySet Name="Anshujas" EntityType="Self.Anshuja" />
+          <EntitySet Name="AOrders" EntityType="Self.AOrder" />
+          <AssociationSet Name="FK_AItems_ToTable" Association="Self.FK_AItems_ToTable">
+            <End Role="ACategory" EntitySet="ACategories" />
+            <End Role="AItems" EntitySet="AItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AOrder_ToTable" Association="Self.FK_AOrder_ToTable">
+            <End Role="ACustomer" EntitySet="ACustomers" />
+            <End Role="AOrder" EntitySet="AOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AItems_ToTable_1" Association="Self.FK_AItems_ToTable_1">
+            <End Role="Anshuja" EntitySet="Anshujas" />
+            <End Role="AItems" EntitySet="AItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AOrder_ToTable_1" Association="Self.FK_AOrder_ToTable_1">
+            <End Role="Anshuja" EntitySet="Anshujas" />
+            <End Role="AOrder" EntitySet="AOrders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_AOrder_ToTable_2" Association="C3IT_DOTNET_TESTModel.FK_AOrder_ToTable_2">
+            <End Role="AItem" EntitySet="AItems" />
+            <End Role="AOrder" EntitySet="AOrders" />
+          </AssociationSet>
+        </EntityContainer>
+        <Association Name="FK_AOrder_ToTable_2">
+          <End Type="C3IT_DOTNET_TESTModel.AItem" Role="AItem" Multiplicity="0..1" />
+          <End Type="C3IT_DOTNET_TESTModel.AOrder" Role="AOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AItem">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="AOrder">
+              <PropertyRef Name="item_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="C3IT_DOTNET_TESTModelStoreContainer" CdmEntityContainer="C3IT_DOTNET_TESTEntities">
+          <EntitySetMapping Name="ACategories">
+            <EntityTypeMapping TypeName="C3IT_DOTNET_TESTModel.ACategory">
+              <MappingFragment StoreEntitySet="ACategory">
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="cat_name" ColumnName="cat_name" />
+                <ScalarProperty Name="cat_comment" ColumnName="cat_comment" />
+                <ScalarProperty Name="cat_date" ColumnName="cat_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ACustomers">
+            <EntityTypeMapping TypeName="C3IT_DOTNET_TESTModel.ACustomer">
+              <MappingFragment StoreEntitySet="ACustomer">
+                <ScalarProperty Name="cus_Id" ColumnName="cus_Id" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="cdate" ColumnName="cdate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AItems">
+            <EntityTypeMapping TypeName="C3IT_DOTNET_TESTModel.AItem">
+              <MappingFragment StoreEntitySet="AItems">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_item" ColumnName="id_item" />
+                <ScalarProperty Name="itname" ColumnName="itname" />
+                <ScalarProperty Name="cat_id" ColumnName="cat_id" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="sold_qty" ColumnName="sold_qty" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="telephone" ColumnName="telephone" />
+                <ScalarProperty Name="sales_price" ColumnName="sales_price" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Anshujas">
+            <EntityTypeMapping TypeName="C3IT_DOTNET_TESTModel.Anshuja">
+              <MappingFragment StoreEntitySet="Anshuja">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="fname" ColumnName="fname" />
+                <ScalarProperty Name="lname" ColumnName="lname" />
+                <ScalarProperty Name="Attname" ColumnName="Attname" />
+                <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="tel" ColumnName="tel" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="user_level" ColumnName="user_level" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="udate" ColumnName="udate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AOrders">
+            <EntityTypeMapping TypeName="C3IT_DOTNET_TESTModel.AOrder">
+              <MappingFragment StoreEntitySet="AOrder">
+                <ScalarProperty Name="item_id" ColumnName="item_id" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ordname" ColumnName="ordname" />
+                <ScalarProperty Name="qty" ColumnName="qty" />
+                <ScalarProperty Name="orddate" ColumnName="orddate" />
+                <ScalarProperty Name="duedate" ColumnName="duedate" />
+                <ScalarProperty Name="cust_id" ColumnName="cust_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
